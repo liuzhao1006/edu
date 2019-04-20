@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lz.toy.mapper.TbConfigFirstMapper">
+    <resultMap id="BaseResultMap" type="com.lz.toy.entity.vo.ConfigFirstUser">
+        <id column="id" property="id"/>
+        <result column="first_name" property="first_name"/>
+        <result column="first_mark" property="first_mark"/>
+        <result column="user_name" property="user_name"/>
+        <result column="i_date" property="i_date"/>
+    </resultMap>
+
+    <select id="selectConfigFirstList" resultMap="BaseResultMap">
+        SELECT c.id,c.first_name,c.first_mark,u.user_name,c.i_date from tb_config_first c,
+        sys_user u where c.user_id=u.id and c.delete_mark=TRUE
+        <if test="search != null">
+            AND c.first_name LIKE CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+
+
+</mapper>
